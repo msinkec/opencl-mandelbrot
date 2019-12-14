@@ -2,8 +2,8 @@
 __kernel void mandelbrot(__global unsigned char* img, 
                            const int max_iteration, const int width, const int height) {
 
-	// Global coordinates
-	int xg = get_global_id(0);
+    // Global coordinates
+    int xg = get_global_id(0);
     int yg = get_global_id(1);
 
     // Check bounds
