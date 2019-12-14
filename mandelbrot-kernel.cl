@@ -1,14 +1,10 @@
 
 __kernel void mandelbrot(__global unsigned char* img, 
-                            int max_iteration) {
+                           const int max_iteration, const int width, const int height) {
 
 	// Global coordinates
 	int xg = get_global_id(0);
     int yg = get_global_id(1);
-
-    int width = get_global_size(0);
-    int height = get_global_size(1);
-
 
     // Check bounds
     if (xg >= width || yg >= height) {

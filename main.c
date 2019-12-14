@@ -92,10 +92,10 @@ int main(void)
 
     // Create context, we'll use only the first GPU
     cl_int ret;
-       cl_context context = clCreateContext(NULL, 1, device_ids, NULL, NULL, &ret);
+    cl_context context = clCreateContext(NULL, 1, device_ids, NULL, NULL, &ret);
 
     // Create OpenCL command queue for context
-       cl_command_queue command_queue = clCreateCommandQueue(context, device_ids[0], 0, &ret);
+    cl_command_queue command_queue = clCreateCommandQueue(context, device_ids[0], 0, &ret);
 
     // Memory allocation on the GPU
     size_t atom_buffer_size = height * width * sizeof(unsigned char) * 4;
@@ -115,7 +115,9 @@ int main(void)
     
     // Set kernel arguments
     ret = clSetKernelArg(kernel, 0, sizeof(cl_mem), (void*) &img_cl);
-    ret |= clSetKernelArg(kernel, 1, sizeof(int), (void*) &max_iteration);
+    ret |= clSetKernelArg(kernel, 1, sizeof(int), &max_iteration);
+    ret |= clSetKernelArg(kernel, 2, sizeof(int), &width);
+    ret |= clSetKernelArg(kernel, 3, sizeof(int), &height);
 
     // Run kernel
     ret = clEnqueueNDRangeKernel(command_queue, kernel, 2, NULL,
